@@ -1,0 +1,35 @@
+﻿@if (Cases != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Confirmed</th>
+                <th scope="col">Deaths</th>
+                <th scope="col">Recovered</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="align-middle">
+                        @Cases.Confirmed
+                    </td>
+                    <td class="align-middle">
+                        @Cases.Deaths
+                    </td>
+                    <td class="align-middle">
+                        @Cases.Recovered
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Loading products...
+    </span>
+}
+@code {
+    [Parameter]
+    public DailyReport Cases { get; set; }
+}

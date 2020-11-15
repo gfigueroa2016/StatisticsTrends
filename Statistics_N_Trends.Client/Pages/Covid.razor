@@ -1,0 +1,29 @@
+﻿@page "/covid"
+@inject CovidService CovidService
+
+<h1>Covid Cases</h1>
+
+<div class="row">
+    <div class="col-md-10">
+        @*Place for search and sort*@
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <CovidTable Cases="Cases" />
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Place for pagination*@
+    </div>
+</div>
+
+@code {
+    public DailyReport Cases { get; set; } = new DailyReport();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Cases = await CovidService.GetAllCaseCount();
+    }
+}

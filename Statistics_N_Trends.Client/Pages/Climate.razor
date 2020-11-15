@@ -1,0 +1,30 @@
+﻿@page "/climate"
+@inject ClimateService ClimateService
+
+<h1>City Climate Comparision</h1>
+
+@if (climateData1 == null && climateData2 == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <FlexChart class="chart" ChartType="ChartType.Area" ItemsSource="climateData1" BindingX="MonthShort" Binding="MinT,MaxT"
+               HeaderContent="Average temperature (°C) by month" HeaderStyle="font-size:24px">
+        <SeriesCollection>
+            <Series Name="@city1" />
+            <Series Name="@city2" ItemsSource="climateData2" />
+        </SeriesCollection>
+    </FlexChart>
+}
+@code {
+    private string city1 = "Singapore";
+    private List<ClimateMonth> climateData1;
+    private string city2 = "New York City";
+    private List<ClimateMonth> climateData2;
+    protected override async Task OnInitializedAsync()
+    {
+        climateData1 = await ClimateService.GetClimateData(city1);
+        climateData2 = await ClimateService.GetClimateData(city2);
+    }
+}
